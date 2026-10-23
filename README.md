@@ -44,10 +44,10 @@ To adjust capacity for production workloads, increase `minContainers`/`maxContai
 ## Changes made over a default GitHub Runner installation
 
 - [x] Add [zerops.yml](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml) to the repository
-- [x] Install runner dependencies (`git`, `zip`, `gcc`, `bzr`, `make`, `jq`) in [`prepareCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L7)
-- [x] Download and install the GitHub Runner binary in [`prepareCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L9)
-- [x] Register the runner automatically on startup via [`initCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L13)
-- [x] Configure a [health check](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L34) using `github-runner status`
+- [x] Install runner dependencies (`git`, `zip`, `gcc`, `bzr`, `make`, `jq`) in [`prepareCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L6)
+- [x] Download and install the GitHub Runner binary in [`prepareCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L8)
+- [x] Register the runner automatically on startup via [`initCommands`](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L12)
+- [x] Configure a [health check](https://github.com/zeropsio/recipe-zcli-github-runner/blob/main/zerops.yml#L31) by checking the runner process status
 
 <br/>
 
