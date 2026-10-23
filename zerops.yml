@@ -15,7 +15,7 @@ zerops:
            /var/www/actions-runner/config.sh \
             --url ${GITHUB_REPO} \
             --token ${GITHUB_TOKEN} \
-            --name "zerops-runner-${ZEROPS_StackName?:}-${ZEROPS_Number?:}" \
+            --name "zerops-${ZEROPS_StackName?:}-${ZEROPS_Number?:}" \
             --labels "${RUNNER_LABELS}" \
             --unattended \
             --replace
