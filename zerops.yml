@@ -4,7 +4,7 @@ zerops:
       os: ubuntu
       base: ubuntu@26.04
       prepareCommands:
-        - sudo apt update && sudo apt install -y git zip gcc bzr make jq
+        - sudo apt update && sudo apt install -y git zip gcc bzr make jq libicu78
         - mkdir -p /var/www/actions-runner
         - curl -L https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz | tar xzf - -C /var/www/actions-runner
 
@@ -18,10 +18,13 @@ zerops:
             --name "zerops-runner-${ZEROPS_StackName?:}-${ZEROPS_Number?:}" \
             --labels "${RUNNER_LABELS}" \
             --unattended \
-            --replace || true
+            --replace
           touch initialized
 
       start: ./actions-runner/run.sh
+
+      envVariables:
+        RUNNER_WORKDIR: /var/www/action-runner/_work
 
       # GitHub runner has no quick health check endpoint (`config.sh --check` isn't meant for probes), so the only viable way is to check if the process is still running.
       healthCheck:
