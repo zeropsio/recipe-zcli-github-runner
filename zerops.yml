@@ -1,0 +1,29 @@
+zerops:
+  - setup: zclirunner
+    run:
+      os: ubuntu
+      base: ubuntu@26.04
+      prepareCommands:
+        - sudo apt update && sudo apt install -y git zip gcc bzr make jq
+        - mkdir -p /var/www/actions-runner
+        - curl -L https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz | tar xzf - -C /var/www/actions-runner
+
+      initCommands:
+        # To re-run the initialization, remove the `initialized` file and restart the service in Zerops
+        - |
+          if [ -f 'initialized' ]; then exit 0; fi
+           /var/www/actions-runner/config.sh \
+            --url ${GITHUB_REPO} \
+            --token ${GITHUB_TOKEN} \
+            --name "zerops-runner-${ZEROPS_StackName?:}-${ZEROPS_Number?:}" \
+            --labels "${RUNNER_LABELS}" \
+            --unattended \
+            --replace || true
+          touch initialized
+
+      start: ./actions-runner/run.sh
+
+      # GitHub runner has no quick health check endpoint (`config.sh --check` isn't meant for probes), so the only viable way is to check if the process is still running.
+      healthCheck:
+        exec:
+          command: pgrep -f "run.sh" > /dev/null && echo "ok" || exit 1

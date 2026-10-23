@@ -1,0 +1,14 @@
+project:
+  name: runners
+
+services:
+  - hostname: zclirunner
+    type: ubuntu@26.04
+    envSecrets:
+      GITHUB_TOKEN: "PLACE_YOUR_GITHUB_TOKEN_HERE"
+      GITHUB_REPO: "PLACE_YOUR_GITHUB_REPO_URL_HERE"
+      RUNNER_LABELS: "" # Example: self-hosted,linux,x64,zerops,zcli
+    buildFromGit: https://github.com/zeropsio/recipe-zcli-github-runner
+    # Set a fixed number of containers, runners shouldn't be scaling horizontally automatically
+    minContainers: 2
+    maxContainers: 2
